@@ -29,23 +29,6 @@ const App = () => {
     network: Network.ETH_MAINNET,
   };
 
-  const network = [
-    { label: "ETH_MAINNET", value: "eth-mainnet" },
-    { label: "ARB_GOERLI", value: "arb-goerli" },
-    { label: "ARB_MAINNET", value: "arb-mainnet" },
-    { label: "ARB_RINKEBY", value: "arb-rinkeby" },
-    { label: "ASTAR_MAINNET", value: "astar-mainnet" },
-    { label: "ETH_GOERLI", value: "eth-goerli" },
-    { label: "ETH_KOVAN", value: "eth-kovan" },
-    { label: "ETH_RINKEBY", value: "eth-rinkeby" },
-    { label: "ETH_ROPSTEN", value: "eth-ropsten" },
-    { label: "MATIC_MAINNET", value: "polygon-mainnet" },
-    { label: "MATIC_MUMBAI", value: "polygon-mumbai" },
-    { label: "OPT_GOERLI", value: "opt-goerli" },
-    { label: "OPT_KOVAN", value: "opt-kovan" },
-    { label: "OPT_MAINNET", value: "opt-mainnet" },
-  ];
-
   const alchemy = new Alchemy(settings);
 
   /**
