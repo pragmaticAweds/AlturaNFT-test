@@ -47,7 +47,8 @@ export interface RawMetadata {
   name: string;
   image: string;
   description: string;
-  attributes: Record<string, string>;
+  animation_url: string;
+  attributes: Record<string, string>[];
 }
 
 export interface TokenURI {
