@@ -27,7 +27,7 @@ This is an App for display NFTs in a collection by inserting the address into th
 
 ## Authors
 
-- [Jimoh Afeez](pragmatic_aweds)
+- [Jimoh Abdulafeez](pragmatic_aweds)
 
 # Acknowledgements
 
