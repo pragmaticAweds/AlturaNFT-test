@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { Dispatch, ReactNode, SetStateAction, useRef } from "react";
 import { useClickAway } from "react-use";
+import CloseIcon from "../../atoms/vectors/CloseIcon";
 // import "./ModalStyles.scss";
 
 const Modal = ({
@@ -18,11 +19,6 @@ const Modal = ({
   modalTitle: string;
   handleCloseModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-  // const modalRef = useRef(null);
-  // useClickAway(modalRef, () => {
-  //   handleCloseModal((prev) => !prev);
-  // });
-
   const handleCloseModal2 = () => {
     handleCloseModal(false);
   };
@@ -38,11 +34,16 @@ const Modal = ({
       <div
         className={clsx(
           "modal scrollbar-hide",
-          mxWt || "max-w-[60%]",
-          mxHt || "max-h-[32.06rem]"
+          mxWt || "md:max-w-[85%] lg:max-w-[60%]",
+          mxHt || "max-h-screen md:max-h-[80%]"
         )}
       >
-        {modalTitle ? <h2 className="modal-heading">{modalTitle}</h2> : null}
+        <div className="flex justify-between items-center border-b pb-2">
+          {modalTitle ? <h2 className="modal-heading">{modalTitle}</h2> : null}
+          <span className="cursor-pointer" onClick={handleCloseModal2}>
+            <CloseIcon />
+          </span>
+        </div>
         <div className="flex-1 overflow-y-auto scrollbar-hide mt-6">
           {children}
         </div>

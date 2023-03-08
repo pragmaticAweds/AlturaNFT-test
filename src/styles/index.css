@@ -134,6 +134,14 @@
     @apply bg-white rounded-lg pt-4 pb-8 px-4 h-full w-full z-10 flex flex-col overflow-hidden;
   }
   .modal-heading {
-    @apply text-[#093D5E] text-xl border-b pb-4;
+    @apply text-[#093D5E] text-xl;
+  }
+
+  .select {
+    @apply py-[0.85rem] lg:py-4 px-2 lg:px-3 rounded-[0.5rem] border-[1px]  flex items-center justify-between gap-x-4 relative;
+  }
+
+  .select-lists {
+    @apply absolute rounded-[0.5rem] border-[1px] flex-col top-[110%]  p-2 z-10  overflow-y-auto;
   }
 }

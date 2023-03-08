@@ -17,12 +17,6 @@ import NFTSkeletonLoader from "./components/molecules/NFTSkeletonLoader";
 import Modal from "./components/organisms/Modal";
 
 const App = () => {
-  const settings = {
-    apiKey: ALCHEMY_ACCESS_KEY,
-    network: Network.ETH_MAINNET,
-  };
-
-  const alchemy = new Alchemy(settings);
   const [nfts, setNfts] = useState<INFTResponse>(null);
   const [nft, setNft] = useState<NFT | null>(null);
   const [walletAddress, setWalletAddress] = useState("");
@@ -30,21 +24,62 @@ const App = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  const settings = {
+    apiKey: ALCHEMY_ACCESS_KEY,
+    network: Network.ETH_MAINNET,
+  };
+
+  const network = [
+    { label: "ETH_MAINNET", value: "eth-mainnet" },
+    { label: "ARB_GOERLI", value: "arb-goerli" },
+    { label: "ARB_MAINNET", value: "arb-mainnet" },
+    { label: "ARB_RINKEBY", value: "arb-rinkeby" },
+    { label: "ASTAR_MAINNET", value: "astar-mainnet" },
+    { label: "ETH_GOERLI", value: "eth-goerli" },
+    { label: "ETH_KOVAN", value: "eth-kovan" },
+    { label: "ETH_RINKEBY", value: "eth-rinkeby" },
+    { label: "ETH_ROPSTEN", value: "eth-ropsten" },
+    { label: "MATIC_MAINNET", value: "polygon-mainnet" },
+    { label: "MATIC_MUMBAI", value: "polygon-mumbai" },
+    { label: "OPT_GOERLI", value: "opt-goerli" },
+    { label: "OPT_KOVAN", value: "opt-kovan" },
+    { label: "OPT_MAINNET", value: "opt-mainnet" },
+  ];
+
+  const alchemy = new Alchemy(settings);
+
+  /**
+   * A function that updates the state value of the wallet address input field.
+   *
+   * @param {ChangeEvent<HTMLInputElement>} e The change event triggered by the input field.
+   * @returns {void}
+   */
   const handleInputField = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setWalletAddress(value);
   }, []);
 
+  /**
+   * A function that clears the state value of the wallet address input field.
+   *
+   * @returns {void}
+   */
   const handleClearInput = useCallback(() => {
     setWalletAddress("");
   }, []);
 
+  /**
+   * A function that handles the submission of the wallet address input field, fetches the associated NFTs,
+   * and updates the state values accordingly.
+   *
+   * @returns {Promise<void>}
+   */
   const handleSubmit = useCallback(async () => {
     setIsFetching((prev) => !prev);
     const trimAdress = walletAddress.trim();
 
     if (!walletAddress) {
-      handleError("You wallet address is misssing", setError);
+      handleError("Your wallet address is missing", setError);
       setNfts(null);
       setIsFetching((prev) => !prev);
       return;
@@ -52,7 +87,7 @@ const App = () => {
 
     const verifyAddress = isValidContractAddress(trimAdress);
     if (!verifyAddress) {
-      handleError("You wallet address is invalid", setError);
+      handleError("Your wallet address is invalid", setError);
       setWalletAddress("");
       setIsFetching((prev) => !prev);
       return;
@@ -67,6 +102,12 @@ const App = () => {
     }
   }, [walletAddress]);
 
+  /**
+   * A function that displays the details of a specific NFT in a modal.
+   *
+   * @param {NFT} nft The NFT to display.
+   * @returns {void}
+   */
   const handleDisplayNFT = useCallback(
     (nft: NFT) => {
       setNft(nft);
@@ -99,7 +140,11 @@ const App = () => {
           <p className="text-center text-red-700 w-full">{error}</p>
         ) : //@ts-ignore
         nfts !== null && nfts.length === 0 ? (
-          <p className="text-center">There is no NFTs in this collection</p>
+          <div className="">
+            <p className="text-center">
+              The address collection is not stored on Ethereum Chainlink.
+            </p>
+          </div>
         ) : null}
         <div
           className={clsx(
@@ -139,9 +184,9 @@ const App = () => {
       >
         {nft !== null ? (
           <div className="single-nft-container">
-            <div className="flex gap-x-4">
-              <div className="flex flex-col gap-y-2">
-                <div className="w-full h-[20rem]">
+            <div className="flex flex-col lg:flex-row gap-x-4">
+              <div className="flex flex-col gap-y-2 lg:w-2/3">
+                <div className="w-full h-auto">
                   <img
                     src={
                       nft.media[0] !== undefined
@@ -153,7 +198,9 @@ const App = () => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs font-semibold">Owned by:</span>
+                  <span className="text-xs font-semibold">
+                    Collection Address:
+                  </span>
                   <span className="text-sm">{nft.contract.address}</span>
                 </div>
               </div>
@@ -162,8 +209,9 @@ const App = () => {
                   {shortText(nft.contract.openSea.collectionName) ||
                     shortText(nft.contract.name)}
                 </h1>
-                <h1 className="text-2xl font-semibold">
-                  {shortText(nft.rawMetadata.name)}
+                <h1 className="xl:text-2xl font-semibold">
+                  {shortText(nft.rawMetadata.name) ||
+                    shortText(nft.contract.name) + "#" + nft.tokenId}
                 </h1>
                 <div className="flex gap-x-2">
                   <div className="flex flex-col px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
@@ -173,15 +221,20 @@ const App = () => {
                     </span>
                   </div>
 
-                  <div className="flex flex-col px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
-                    <span className="text-xs text-[#3D00B7]">Total Supply</span>
-                    <span className="text-sm font-semibold">
-                      {nft.contract.totalSupply}
-                    </span>
-                  </div>
+                  {nft.contract.totalSupply ? (
+                    <div className="flex flex-col px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
+                      <span className="text-xs text-[#3D00B7]">
+                        Total Supply
+                      </span>
+                      <span className="text-sm font-semibold">
+                        {nft.contract.totalSupply}
+                      </span>
+                    </div>
+                  ) : null}
                 </div>
                 <a
-                  href={`https://opensea.io/assets/ethereum/${walletAddress}/${nft.tokenId}`}
+                  href={`https://opensea.io/assets/ethereum/${nft.contract.address}/${nft.tokenId}`}
+                  target="_blank"
                 >
                   <Button title="Purchase NFT" />
                 </a>

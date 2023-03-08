@@ -10,7 +10,7 @@ const NFTCard = ({ nft, onClick }: { nft: NFT; onClick: () => void }) => {
       <div className="h-[80%] w-full rounded-t-xl">
         <img
           src={
-            nft.media[0] !== undefined
+            nft.media.length >= 1
               ? nft.media[0].gateway
               : nft.contract.openSea.imageUrl
           }
