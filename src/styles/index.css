@@ -79,7 +79,7 @@
   }
 
   .input-wrapper {
-    @apply flex border items-center bg-white pl-4 pr-2 rounded-lg gap-x-2 flex-1;
+    @apply flex border items-center bg-white pl-4 pr-2 rounded-lg gap-x-2 w-full;
   }
 
   @keyframes donut-spin {
