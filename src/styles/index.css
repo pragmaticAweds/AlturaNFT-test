@@ -75,11 +75,11 @@
   }
 
   input {
-    @apply outline-none py-3 flex-1 text-lg bg-transparent;
+    @apply outline-none py-3 flex-1 text-lg bg-transparent truncate;
   }
 
   .input-wrapper {
-    @apply flex border items-center bg-white pl-4 pr-2 rounded-lg gap-x-2 w-full;
+    @apply flex border items-center bg-white pl-4 pr-2 rounded-lg gap-x-2 flex-1;
   }
 
   @keyframes donut-spin {

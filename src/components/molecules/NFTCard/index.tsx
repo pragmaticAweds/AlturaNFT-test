@@ -4,7 +4,7 @@ import { NFT } from "../../../utils/types";
 const NFTCard = ({ nft, onClick }: { nft: NFT; onClick: () => void }) => {
   return (
     <div
-      className="flex flex-col h-[22rem] bg-white rounded-t-xl shadow-md cursor-pointer hover:shadow-2xl"
+      className="flex flex-col h-[25rem] lg:h-[22rem] bg-white rounded-t-xl shadow-md cursor-pointer hover:shadow-2xl"
       onClick={onClick}
     >
       <div className="h-[80%] w-full rounded-t-xl">
