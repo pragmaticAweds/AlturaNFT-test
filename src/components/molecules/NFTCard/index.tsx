@@ -25,7 +25,8 @@ const NFTCard = ({ nft, onClick }: { nft: NFT; onClick: () => void }) => {
             {shortText(nft?.title) || shortText(nft?.contract?.name)}
           </h1>
           <span className="text-sm font-semibold whitespace-nowrap">
-            {nft?.contract?.openSea?.collectionName || nft?.contract?.name}
+            {shortText(nft?.contract?.openSea?.collectionName) ||
+              shortText(nft?.contract?.name)}
           </span>
         </div>
         <div className="flex justify-between items-center">
