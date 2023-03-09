@@ -44,7 +44,7 @@ const Modal = ({
             <CloseIcon />
           </span>
         </div>
-        <div className="flex-1 overflow-y-auto scrollbar-hide mt-6">
+        <div className="flex-1 overflow-x-hidden overflow-y-auto scrollbar-hide mt-6">
           {children}
         </div>
       </div>

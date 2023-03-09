@@ -164,8 +164,8 @@ const App = () => {
       >
         {
           <div className="single-nft-container">
-            <div className="flex flex-col lg:flex-row gap-x-4">
-              <div className="flex flex-col gap-y-2 lg:w-2/3">
+            <div className="grid lg:grid-cols-[60%_40%] gap-x-4">
+              <div className="flex flex-col gap-y-2 lg:w-full">
                 <div className="w-full h-auto">
                   <img
                     src={
@@ -177,6 +177,7 @@ const App = () => {
                     className="w-full h-full"
                   />
                 </div>
+
                 <div className="flex flex-col">
                   <span className="text-xs font-semibold">
                     Collection Address:
@@ -184,20 +185,20 @@ const App = () => {
                   <span className="text-sm">{nft?.contract?.address}</span>
                 </div>
               </div>
-              <div className=" flex flex-col gap-y-4 pr-2">
+              <div className="flex flex-col gap-y-4 pr-2">
                 <h1 className="text-sm text-[#3D00B7]">
                   {shortText(
                     nft?.contract?.openSea?.collectionName as string
                   ) || shortText(nft?.contract?.name as string)}
                 </h1>
-                <h1 className="xl:text-2xl font-semibold">
+                <h1 className="xl:text-3xl font-semibold">
                   {shortText(nft?.rawMetadata?.name as string) ||
                     shortText(nft?.contract?.name as string) +
                       "#" +
                       nft?.tokenId}
                 </h1>
                 <div className="flex gap-x-2">
-                  <div className="flex flex-col px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
+                  <div className="flex flex-col items-center px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
                     <span className="text-xs text-[#3D00B7]">Token Type</span>
                     <span className="text-sm font-semibold">
                       {nft?.tokenType}
@@ -205,7 +206,7 @@ const App = () => {
                   </div>
 
                   {nft?.contract?.totalSupply ? (
-                    <div className="flex flex-col px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
+                    <div className="flex flex-col items-center px-2 py-2 border border-[#3D00B7] rounded-md max-w-max">
                       <span className="text-xs text-[#3D00B7]">
                         Total Supply
                       </span>
@@ -215,6 +216,12 @@ const App = () => {
                     </div>
                   ) : null}
                 </div>
+                <p className="pr-2">
+                  {shortText(
+                    nft?.contract?.openSea?.description as string,
+                    110
+                  )}
+                </p>
                 <a
                   href={`https://opensea.io/assets/ethereum/${nft?.contract.address}/${nft?.tokenId}`}
                   target="_blank"

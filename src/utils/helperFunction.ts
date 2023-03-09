@@ -30,11 +30,12 @@ export const handleError = (
  * Returns a shortened version of the given string if it exceeds 20 characters, or the original string if it doesn't.
  *
  * @param {string} text The string to shorten.
+ * @param {number} length The length of text to  shorten.
  * @returns {string} The shortened version of the string.
  */
-export const shortText = (text: string) => {
+export const shortText = (text: string, length: number = 20) => {
   if (!text) {
     return "";
   }
-  return text.length > 20 ? text.slice(0, 20) + "..." : text;
+  return text.length > length ? text.slice(0, length) + "..." : text;
 };
