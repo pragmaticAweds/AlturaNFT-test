@@ -123,11 +123,9 @@ const App = () => {
           <p className="text-center text-red-700 w-full">{error}</p>
         ) : //@ts-ignore
         nfts !== null && nfts.length === 0 ? (
-          <div className="">
-            <p className="text-center">
-              The address collection is not stored on Ethereum Chainlink.
-            </p>
-          </div>
+          <p className="text-center">
+            Please entern a collection address created on Ethereum Chainlink.
+          </p>
         ) : null}
         <div
           className={clsx(

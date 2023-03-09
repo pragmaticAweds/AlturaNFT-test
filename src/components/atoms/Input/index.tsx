@@ -21,7 +21,7 @@ const Input = ({
     >
       <input
         type="text"
-        placeholder="Enter collection address to display NFTs."
+        placeholder="Enter collection address."
         onChange={handleInputField}
         value={walletAddress}
       />
